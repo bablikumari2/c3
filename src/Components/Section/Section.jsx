@@ -5,40 +5,89 @@ import { BookCard } from "../BookCard/BookCard";
 import { SortAndFilterButtons } from "../SortAndFilterButtons/SortAndFilterButtons";
 import styled from "styled-components";
 
-
 export const Section = () => {
- const section = useParams(); 
+  // you will receive section name from URL here.
+  // Get books for only this section and show
+  //   Everything else is same as Home page
 
- const [data, setData] = useState([])
+  const [books, setBooks] = useState([]);
+  const [filterState, setFilterState] = useState({});
 
- useEffect(() => {
-   getdata()
- }, [section])
+  const { section } = useParams();
+  const getBooks = () => {
+    axios.get(`http://localhost:8080/books`).then((res) => {
+      setBooks([...res.data]);
+    });
+  };
+  console.log(books)
 
- const getdata = () => {
-   fetch(`http://localhost:8080/books?section=${section.section}`).then((response) => (response.json())).then((data) => {
-     console.log("Section Data", data)
-     setData(data)
-   })
- }
-
+  useEffect(() => {
+    getBooks();
+  }, []);
   const Main = styled.div`
     /* Same as Homepage */
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 2%;
+    width:"200px";
+    height:"300px";
   `;
+  const handleSort = (parameter, value) => {
+    setFilterState({ parameter, value });
+  };
 
   return (
     <>
       <h2 style={{ textAlign: "center" }}>
-        { section.section
+        {
           //   Show section name here
+          section
         }
       </h2>
-      <SortAndFilterButtons handleSort={"give sorting function to component"} />
+      <SortAndFilterButtons handleSort={handleSort} />
 
       <Main className="sectionContainer">
-      { data.map((e,i)=> (
-          <BookCard id={e.id} title={e.title} imageUrl={e.imageUrl} section={e.section}/>
-        ))}
+        {/* SHow same BookCard component here, just like homepage but with books only belong to this Section */}
+
+        {books.sort((a, b) => {
+            if (filterState.parameter == "title" && filterState.value == 1) {
+              return a["title"].localeCompare(b["title"]);
+            } else if (
+              filterState.parameter == "title" &&
+              filterState.value == -1
+            ) {
+              return b["title"].localeCompare(a["title"]);
+            } else if (
+              filterState.parameter == "price" &&
+              filterState.value == 1
+            ) {
+              return a["price"] - b["price"];
+            } else if (
+              filterState.parameter == "price" &&
+              filterState.value == -1
+            ) {
+              return b["price"] - a["price"];
+            }
+          })
+          .filter((el) => {
+            if (el.section == section) {
+              return true;
+            } else {
+              return false;
+            }
+          })
+          .map((el) => {
+            return (
+              <div>
+                <BookCard
+                  title={el.title}
+                  price={el.price}
+                  imageUrl={el.imageUrl}
+                  id={el.id}
+                />
+              </div>
+            );
+          })}
       </Main>
     </>
   );

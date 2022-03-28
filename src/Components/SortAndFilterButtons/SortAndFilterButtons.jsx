@@ -6,7 +6,7 @@ export const SortAndFilterButtons = ({ handleSort }) => {
         display: "flex",
         justifyContent: "space-around",
         padding: "10px",
-        backgroundColor: "lightpink",
+        backgroundColor: "orange",
 
       }}
     >

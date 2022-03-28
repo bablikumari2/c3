@@ -8,8 +8,8 @@ export const Navbar = () => {
         style={{
           display: "flex",
           justifyContent: "space-around",
-          backgroundColor: "pink",
-          color: "while",
+          backgroundColor: "orange",
+          color: "white",
           padding: "5px"          
         }}
       >

@@ -5,19 +5,16 @@ export const BookCard = ({ id, imageUrl, title, price }) => {
   const Wrapper = styled.div`
     border: 1px solid black;
     cursor: pointer;
-    `;
-  const Title = styled.p`
+  `;
+  const Title = styled.h2`
     color: blue;
     margin: 0;
-    `;
+  `;
   const Image = styled.img`
     width: 100%;
     height: 300px;
   `;
-  const Price = styled.h4`
-    margin: 0%;
-  `;
-  const Id = styled.h4`
+  const Price = styled.p`
     margin: 0%;
   `;
 
@@ -39,13 +36,12 @@ export const BookCard = ({ id, imageUrl, title, price }) => {
   //    title, image price etc here
   // </YourStyledLink>
   return (
-    <Wrapper>
-      <Link to={`/bookdetailspage/${id}`}>
+    <Link to={`/bookdetailspage/${id}`}>
+      <Wrapper className="bookCard">
         <Image src={imageUrl} />
-        <Id>{id}</Id>
-        <Title>{title}</Title>
-        <Price>{price}</Price>
-      </Link>
-    </Wrapper>
+        <Title className="title">{title}</Title>
+        <Price className="price">{price}</Price>
+      </Wrapper>
+    </Link>
   );
 };

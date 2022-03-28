@@ -4,11 +4,11 @@ export const Navbar = () => {
 
   return (
     <>
-      <div
+      <div className="navbar"
         style={{
           display: "flex",
           justifyContent: "space-around",
-          backgroundColor: "lightgreen",
+          backgroundColor: "pink",
           color: "while",
           padding: "5px"          
         }}

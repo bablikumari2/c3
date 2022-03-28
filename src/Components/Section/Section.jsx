@@ -50,27 +50,27 @@ export const Section = () => {
         {/* SHow same BookCard component here, just like homepage but with books only belong to this Section */}
 
         {books.sort((a, b) => {
-            if (filterState.parameter == "title" && filterState.value == 1) {
+            if (filterState.parameter === "title" && filterState.value === 1) {
               return a["title"].localeCompare(b["title"]);
             } else if (
-              filterState.parameter == "title" &&
-              filterState.value == -1
+              filterState.parameter === "title" &&
+              filterState.value === -1
             ) {
               return b["title"].localeCompare(a["title"]);
             } else if (
-              filterState.parameter == "price" &&
-              filterState.value == 1
+              filterState.parameter === "price" &&
+              filterState.value === 1
             ) {
               return a["price"] - b["price"];
             } else if (
-              filterState.parameter == "price" &&
-              filterState.value == -1
+              filterState.parameter === "price" &&
+              filterState.value === -1
             ) {
               return b["price"] - a["price"];
             }
           })
           .filter((el) => {
-            if (el.section == section) {
+            if (el.section === section) {
               return true;
             } else {
               return false;
